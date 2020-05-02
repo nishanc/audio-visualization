@@ -23,6 +23,8 @@ function setup() {
   space_between_lines = width / 128;
 }
 
+//Switch to branch symmetric-spectrum using "git checkout symmetric-spectrum" if you want symmetric spectrum.
+
 function draw() {
   background(0);
   
