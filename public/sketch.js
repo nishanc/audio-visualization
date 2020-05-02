@@ -15,7 +15,8 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(600, 600)
+  createCanvas(600, 600);
+  angleMode(DEGREES); // Change the mode to DEGREES
   buttton = createButton('Toggle');
   buttton.mousePressed(toggleSong);
   song.play();  
@@ -27,16 +28,19 @@ function draw() {
   let vol = amp.getLevel();
   volHistory.push(vol);
 
+  translate(width/2, height/2)
   noFill();
   beginShape();
-  for (let x = 0; x < volHistory.length; x++) {
-    stroke(255)
-    let y = map(volHistory[x], 0, 1, height, 0);
+  for (let i = 0; i < 360; i++) {
+    stroke(255);
+    let r = map(volHistory[i], 0, 1, 10, 300);
+    let x = r * cos(i);
+    let y = r * sin(i);
     vertex(x, y);
   }
   endShape();
 
-  if(volHistory.length > width) {
+  if(volHistory.length > 360) {
     volHistory.splice(0,1);
   }
   
