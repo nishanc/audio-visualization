@@ -1,6 +1,5 @@
-var song;
-var buttton;
-var amp; //volume
+let song, buttton, amp;
+let volHistory = [];
 
 function toggleSong() {
   if(song.isPlaying()) {
@@ -25,8 +24,23 @@ function setup() {
 
 function draw() {
   background(0);
-  var vol = amp.getLevel();
-  ellipse(300, 300, vol*300, vol*300);
+  let vol = amp.getLevel();
+  volHistory.push(vol);
+
+  noFill();
+  beginShape();
+  for (let x = 0; x < volHistory.length; x++) {
+    stroke(255)
+    let y = map(volHistory[x], 0, 1, height, 0);
+    vertex(x, y);
+  }
+  endShape();
+
+  if(volHistory.length > width) {
+    volHistory.splice(0,1);
+  }
+  
+  // ellipse(300, 300, vol*300, vol*300);
   console.log(vol)
 }
 
