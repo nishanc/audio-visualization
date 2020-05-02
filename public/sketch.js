@@ -9,18 +9,18 @@ function toggleSong() {
 }
 
 function preload() {
-  song = loadSound('audio/the-alphabeat.mp3'); 
+  song = loadSound('audio/the-alphabeat.mp3');
 }
 
 function setup() {
-  createCanvas(600, 600);
-  angleMode(DEGREES); // Change the mode to DEGREES
+  createCanvas(1200, 600);
   colorMode(HSB);
+  filter(BLUR, 100);
   buttton = createButton('Toggle Play');
   buttton.mousePressed(toggleSong);
   song.play();  
-  fft = new p5.FFT(0.9, 128);
-  space_between_lines = width / 128;
+  fft = new p5.FFT(0.9, 64);
+  space_between_lines = (width/2) / 64;
 }
 
 function draw() {
@@ -28,10 +28,11 @@ function draw() {
   
   let spectrum = fft.analyze();
   for (let i = 0; i < spectrum.length; i++) {
-    fill(i,255,255);
+    fill(i*3,255,255); //fill(i,255,255);
     let amp = spectrum[i];
-    let y = map(amp, 0, 256, height, 0);
-    rect(i * space_between_lines, y, space_between_lines, height - y);
+    let y = map(amp, 0, 256, height, 350);
+    rect((width/2) + (i * space_between_lines), y, space_between_lines, height - y);
+    rect((width/2) - (i * space_between_lines), y, space_between_lines, height - y);
   }
 }
 
