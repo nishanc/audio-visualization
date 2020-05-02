@@ -15,6 +15,7 @@ function preload() {
 function setup() {
   createCanvas(600, 600);
   angleMode(DEGREES); // Change the mode to DEGREES
+  colorMode(HSB);
   buttton = createButton('Toggle Play');
   buttton.mousePressed(toggleSong);
   song.play();  
@@ -27,10 +28,10 @@ function draw() {
   
   let spectrum = fft.analyze();
   for (let i = 0; i < spectrum.length; i++) {
-    stroke(255);
+    fill(i,255,255);
     let amp = spectrum[i];
     let y = map(amp, 0, 256, height, 0);
-    line(i * space_between_lines, height, i * space_between_lines, y);
+    rect(i * space_between_lines, y, space_between_lines, height - y);
   }
 }
 
